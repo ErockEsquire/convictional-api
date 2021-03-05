@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { validateParams } = require('../utils/utils');
 const { db } = require('../db/db')
-const { products, inventory, images, weights, variants } = db
+const { products, inventory } = db
+
+//routes for /products, /product/:id, and /store/inventory with basic validation.
 
 router.get('/products', (req, res) => {
   if (!req.params) res.status(404).send('products not found');

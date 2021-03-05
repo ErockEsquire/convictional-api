@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+// Models representing the API Objects in db.json
+
 const ProductSchema = new mongoose.Schema({
   code: {type: String, required: true},
   title: {type: String, description: 'Product title'},

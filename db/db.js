@@ -1,3 +1,5 @@
+//mock DB
+
 const variants = []
 const images = []
 const inventory = []

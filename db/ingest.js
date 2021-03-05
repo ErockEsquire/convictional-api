@@ -6,16 +6,28 @@ const {
   Image,
 } = require("../models/models");
 
+//I wasn't sure what was supposed to indicate Inventory... so I set a default 1
 const checkInventory = () => {
   return 1;
 };
 
+//Main method for ingesting products API. 
+//With more time, I would make these functions modular, as this part becomes harder to read.
 const ingest = (input, db) => {
   const { products, inventory, weights, variants, images } = db;
 
   input.forEach((product) => {
     const productVariants = []
     const productImages = []
+
+    //essentially, this code loops through each product found in the products API,
+    //and populates our own local mock db with objects based on our own models/schema.
+
+    //My biggest debate here was how to modularize each construct call without needing to enter 
+    //the loop from the beginning, at the products level, each time.
+
+    //Ultimately, I settled on the fact that products, variants, and images are inherently deeply connected,
+    //so my code would reflect that. If I had more time, I would have pure function calls for construction.
 
     product.variants.forEach((variant) => {
       convVariant = new Variant({
@@ -29,8 +41,8 @@ const ingest = (input, db) => {
           unit: variant.weight_unit,
         })),
       });
-      weights.push(weight);
       productVariants.push(convVariant);
+      weights.push(weight);
       variants.push(convVariant);
 
       variant.images.forEach((image) => {
